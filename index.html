@@ -372,6 +372,14 @@
   .embed-help{font-size:0.9rem; color:var(--gray); margin:0 0 8px;}
   @media (max-width:680px){ .discord-embed{height:480px;} .discord-embed-small{height:340px;} }
 
+  /* ---------- underlined sub-headers ---------- */
+  .panel h3:not(#cal-title), .panel h4{
+    text-decoration:underline;
+    text-decoration-color:var(--pink);
+    text-decoration-thickness:2px;
+    text-underline-offset:5px;
+  }
+
   /* ---------- section dividers ---------- */
   hr.divider{
     border:0; height:14px; margin:52px 0 0; position:relative; overflow:visible;
