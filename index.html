@@ -368,7 +368,9 @@
     background:#36393f; box-shadow:0 10px 26px rgba(40,10,50,0.2); margin:6px 0 8px;
   }
   .panel h3.sub{font-size:1.15rem; margin:24px 0 6px;}
-  @media (max-width:680px){ .discord-embed{height:480px;} }
+  .discord-embed-small{height:380px; max-width:760px;}
+  .embed-help{font-size:0.9rem; color:var(--gray); margin:0 0 8px;}
+  @media (max-width:680px){ .discord-embed{height:480px;} .discord-embed-small{height:340px;} }
 
   /* ---------- animations ---------- */
   @keyframes logoIn{
@@ -702,9 +704,9 @@
     <p class="lead">The latest news from our Discord, updated automatically whenever an officer posts.</p>
     <section id="sec-announcements">
       <!-- WidgetBot embed of the #announcements channel. -->
-      <iframe class="discord-embed" src="https://e.widgetbot.io/channels/407352696430133249/1016946356415369227"
-              title="Anime Society of LCCC Discord: #announcements"
-              loading="lazy" allow="clipboard-write; fullscreen"></iframe>
+      <iframe class="discord-embed" data-src="https://e.widgetbot.io/channels/407352696430133249/1016946356415369227"
+              title="Anime Society of LCCC Discord: #announcements" allow="clipboard-write; fullscreen"></iframe>
+      <p class="embed-help">Not loading? <a href="https://e.widgetbot.io/channels/407352696430133249/1016946356415369227" target="_blank" rel="noopener">Open #announcements in a new tab</a>.</p>
     </section>
   </div>
 
@@ -746,9 +748,9 @@
     <p>The quickest way to reach an officer. Here are our server rules; open the server from the panel to apply to join.</p>
     <!-- WidgetBot embed of the #rules channel.
          To show a different channel, change the last number in the src link to that channel's ID. -->
-      <iframe class="discord-embed" src="https://e.widgetbot.io/channels/407352696430133249/1070801685401845801"
-              title="Anime Society of LCCC Discord: #rules"
-              loading="lazy" allow="clipboard-write; fullscreen"></iframe>
+      <iframe class="discord-embed discord-embed-small" data-src="https://e.widgetbot.io/channels/407352696430133249/1070801685401845801"
+              title="Anime Society of LCCC Discord: #rules" allow="clipboard-write; fullscreen"></iframe>
+      <p class="embed-help">Not loading? <a href="https://e.widgetbot.io/channels/407352696430133249/1070801685401845801" target="_blank" rel="noopener">Open #rules in a new tab</a>.</p>
 
     <h3 class="sub">Other Places To Find Us</h3>
     <ul class="links">
@@ -1112,6 +1114,12 @@
       else b.removeAttribute('aria-current');
     });
     dd.classList.toggle('current', underClubInfo.indexOf(name) !== -1);
+
+    // Discord embeds load only when their page is opened (keeps the page light
+    // and avoids starting two WidgetBot embeds at once).
+    document.querySelectorAll('#panel-' + name + ' iframe[data-src]').forEach(function (f) {
+      if (!f.getAttribute('src')) f.src = f.getAttribute('data-src');
+    });
   }
 
   function setMenu(open) {
