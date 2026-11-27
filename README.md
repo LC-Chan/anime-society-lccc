@@ -12,7 +12,7 @@ The whole site is a single page, `index.html`, with its images in the `assets` f
   - **Announcements:** live #announcements from Discord.
   - **Calendar:** club nights, off weeks, breaks, and holidays.
   - **Constitution:** opens `assets/ASLC3-Constitution-2026-2027.pdf` in a new tab. For a new year, add the new PDF to `assets` and update the two links to it in `index.html` (search for `Constitution`).
-- **Contact:** the live #rules channel from Discord, Facebook, and LCCC Connect.
+- **Contact:** the live #rules channel from Discord, Instagram, and LCCC Connect.
 
 The Discord channels are embedded with [WidgetBot](https://widgetbot.io). To show a different channel, change the last number in the embed's link to that channel's ID.
 

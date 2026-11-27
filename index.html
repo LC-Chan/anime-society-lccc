@@ -378,6 +378,11 @@
   }
   .panel h3.sub{font-size:1.15rem; margin:24px 0 6px;}
   .discord-embed-small{height:380px; max-width:760px;}
+  .insta-embed{
+    width:100%; max-width:480px; height:450px; border:1px solid var(--border); border-radius:8px;
+    display:block; background:#fff; margin:6px 0 8px; box-shadow:0 10px 26px rgba(40,10,50,0.12);
+  }
+  @media (max-width:680px){ .insta-embed{height:380px;} }
   .embed-help{font-size:0.9rem; color:var(--gray); margin:0 0 8px;}
   @media (max-width:680px){ .discord-embed{height:480px;} .discord-embed-small{height:340px;} }
 
@@ -817,11 +822,18 @@
               title="Anime Society of LCCC Discord: #rules" allow="clipboard-write; fullscreen"></iframe>
       <p class="embed-help">Not loading? <a href="https://e.widgetbot.io/channels/407352696430133249/1070801685401845801" target="_blank" rel="noopener">Open #rules in a new tab</a>.</p>
 
+    <h3 class="sub">Instagram</h3>
+    <p>Photos and announcements from <a href="https://www.instagram.com/animesociety_lccc/" target="_blank" rel="noopener">@animesociety_lccc</a>, updated automatically.</p>
+    <!-- Instagram's own profile embed: shows the latest posts. -->
+    <iframe class="insta-embed" data-src="https://www.instagram.com/animesociety_lccc/embed/"
+            title="Anime Society of LCCC on Instagram" scrolling="no"></iframe>
+    <p class="embed-help">Not loading? <a href="https://www.instagram.com/animesociety_lccc/" target="_blank" rel="noopener">Open our Instagram in a new tab</a>.</p>
+
     <h3 class="sub">Other Places To Find Us</h3>
     <ul class="links">
       <li>
-        <div><strong>Facebook</strong><span>Announcements and photos from past events.</span></div>
-        <a href="https://www.facebook.com/AnimeSocietyOfLccc" target="_blank" rel="noopener">Anime Society of LCCC</a>
+        <div><strong>Instagram</strong><span>Announcements and photos from past events.</span></div>
+        <a href="https://www.instagram.com/animesociety_lccc/" target="_blank" rel="noopener">@animesociety_lccc</a>
       </li>
       <li>
         <div><strong>LCCC Connect</strong><span>Our official student organization page.</span></div>
@@ -853,7 +865,7 @@
 <footer>
   <p>Anime Society of LCCC &middot; Lorain County Community College, Elyria, Ohio</p>
   <a href="https://linktr.ee/aslc3" target="_blank" rel="noopener">Discord</a>
-  <a href="https://www.facebook.com/AnimeSocietyOfLccc" target="_blank" rel="noopener">Facebook</a>
+  <a href="https://www.instagram.com/animesociety_lccc/" target="_blank" rel="noopener">Instagram</a>
   <a href="https://lorainccc.presence.io/organization/anime-society-of-lccc" target="_blank" rel="noopener">LCCC Connect</a>
 </footer>
 
