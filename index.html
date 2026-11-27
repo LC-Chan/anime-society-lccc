@@ -259,7 +259,7 @@
   }
   .next-up strong{display:block; color:var(--purple-dark); font-weight:800;}
   .cal-head{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
-  .cal-head h2{margin:0; padding:0; border:none; flex:1; text-align:center; font-size:1.5rem;}
+  .cal-head h2, .panel section .cal-head h3{margin:0; padding:0; border:none; flex:1; text-align:center; font-size:1.5rem; color:var(--purple-dark);}
   .cal-head button{
     font:inherit; font-weight:700; cursor:pointer;
     background:#fff; color:var(--purple); border:1px solid var(--border); border-radius:4px;
@@ -336,6 +336,13 @@
     .od-pic{width:76px; height:76px; font-size:2rem;}
     .od-anime img{width:84px;}
   }
+
+  .discord-embed{
+    width:100%; height:560px; border:0; border-radius:8px; display:block;
+    background:#36393f; box-shadow:0 10px 26px rgba(40,10,50,0.2); margin:6px 0 8px;
+  }
+  .panel h3.sub{font-size:1.15rem; margin:24px 0 6px;}
+  @media (max-width:680px){ .discord-embed{height:480px;} }
 
   /* ---------- animations ---------- */
   @keyframes logoIn{
@@ -467,7 +474,6 @@
 <nav class="tabs" role="tablist" aria-label="Site sections">
   <button role="tab" id="tab-about" aria-controls="panel-about" aria-selected="true">About Us</button>
   <button role="tab" id="tab-info" aria-controls="panel-info" aria-selected="false">Club Info</button>
-  <button role="tab" id="tab-calendar" aria-controls="panel-calendar" aria-selected="false">Calendar</button>
   <button role="tab" id="tab-contact" aria-controls="panel-contact" aria-selected="false">Contact</button>
 </nav>
 
@@ -521,6 +527,8 @@
     <nav class="jump" aria-label="On this page">
       <span>Jump To</span>
       <button type="button" data-jump="sec-meetings">Meetings</button>
+      <button type="button" data-jump="sec-announcements">Announcements</button>
+      <button type="button" data-jump="sec-calendar">Calendar</button>
       <button type="button" data-jump="sec-watch">What We Watch</button>
       <button type="button" data-jump="sec-events">Events</button>
       <button type="button" data-jump="sec-rules">Rules</button>
@@ -554,7 +562,44 @@
       <p>Most meetings end with an optional group dinner off campus at a restaurant the club votes on. If a meeting is cancelled, we'll post it on Discord and social media.</p>
     </section>
 
-    <!-- 2. WHAT WE WATCH -->
+    <!-- 2. ANNOUNCEMENTS -->
+    <section id="sec-announcements">
+      <h2>Announcements</h2>
+      <p>The latest news from our Discord, updated automatically whenever an officer posts.</p>
+      <!-- WidgetBot embed of the #announcements channel. -->
+      <iframe class="discord-embed" src="https://e.widgetbot.io/channels/407352696430133249/1016946356415369227"
+              title="Anime Society of LCCC Discord: #announcements"
+              loading="lazy" allow="clipboard-write; fullscreen"></iframe>
+    </section>
+
+    <!-- 3. CALENDAR -->
+    <section id="sec-calendar">
+      <h2>Calendar</h2>
+      <p>Club nights, off weeks, breaks, and holidays in one place.</p>
+
+      <div class="next-up" id="cal-next"></div>
+
+      <div class="cal-head">
+        <button type="button" id="cal-prev" aria-label="Previous month">&lsaquo;</button>
+        <h3 id="cal-title" aria-live="polite"></h3>
+        <button type="button" id="cal-next-btn" aria-label="Next month">&rsaquo;</button>
+        <button type="button" id="cal-today">Today</button>
+      </div>
+
+      <div class="cal-grid" id="cal-grid"></div>
+
+      <ul class="legend">
+        <li><i class="k-club"></i>Club Night</li>
+        <li><i class="k-off"></i>Off Week (No Meeting)</li>
+        <li><i class="k-break"></i>Break</li>
+        <li><i class="k-holiday"></i>Holiday</li>
+      </ul>
+
+      <h3>This Month</h3>
+      <ul class="agenda" id="cal-agenda"></ul>
+    </section>
+
+    <!-- 4. WHAT WE WATCH -->
     <section id="sec-watch">
       <h2>What We Watch</h2>
 
@@ -604,7 +649,7 @@
       </div>
     </section>
 
-    <!-- 3. EVENTS -->
+    <!-- 5. EVENTS -->
     <section id="sec-events">
       <h2>Events Through The Year</h2>
       <table>
@@ -623,7 +668,7 @@
       <p>Movie night picks are chosen by members. Suggestions are collected in the <strong>#movie-suggestion</strong> channel on Discord for a week, followed by a week-long poll.</p>
     </section>
 
-    <!-- 4. RULES -->
+    <!-- 6. RULES -->
     <section id="sec-rules">
       <h2>Club Rules</h2>
 
@@ -646,7 +691,7 @@
       <p>Some anime we watch includes mature content, so you'll need a waiver signed by a parent or guardian before taking part. Ask an officer for a copy.</p>
     </section>
 
-    <!-- 5. MEMBERSHIP -->
+    <!-- 7. MEMBERSHIP -->
     <section id="sec-join">
       <h2>Becoming A Member</h2>
       <p>Come to any meeting. You're welcome to sit in as often as you like before joining, and there's no fee. Students and non-students can both join. When you're ready, add yourself to our roster on LCCC Connect.</p>
@@ -655,44 +700,22 @@
     </section>
   </div>
 
-  <!-- CALENDAR -->
-  <div class="panel" role="tabpanel" id="panel-calendar" aria-labelledby="tab-calendar">
-    <h1>Calendar</h1>
-    <p class="lead">Club nights, off weeks, breaks, and holidays in one place.</p>
-
-    <div class="next-up" id="cal-next"></div>
-
-    <div class="cal-head">
-      <button type="button" id="cal-prev" aria-label="Previous month">&lsaquo;</button>
-      <h2 id="cal-title" aria-live="polite"></h2>
-      <button type="button" id="cal-next-btn" aria-label="Next month">&rsaquo;</button>
-      <button type="button" id="cal-today">Today</button>
-    </div>
-
-    <div class="cal-grid" id="cal-grid"></div>
-
-    <ul class="legend">
-      <li><i class="k-club"></i>Club Night</li>
-      <li><i class="k-off"></i>Off Week (No Meeting)</li>
-      <li><i class="k-break"></i>Break</li>
-      <li><i class="k-holiday"></i>Holiday</li>
-    </ul>
-
-    <h2>This Month</h2>
-    <ul class="agenda" id="cal-agenda"></ul>
-  </div>
-
   <!-- CONTACT -->
   <div class="panel" role="tabpanel" id="panel-contact" aria-labelledby="tab-contact">
     <h1>Contact</h1>
     <p class="lead">Questions about the club or an upcoming meeting? Reach us through any of the channels below.</p>
 
     <h2>Online</h2>
+    <h3 class="sub">Discord</h3>
+    <p>The quickest way to reach an officer. Here are our server rules; open the server from the panel to apply to join.</p>
+    <!-- WidgetBot embed of the #rules channel.
+         To show a different channel, change the last number in the src link to that channel's ID. -->
+      <iframe class="discord-embed" src="https://e.widgetbot.io/channels/407352696430133249/1070801685401845801"
+              title="Anime Society of LCCC Discord: #rules"
+              loading="lazy" allow="clipboard-write; fullscreen"></iframe>
+
+    <h3 class="sub">Other Places To Find Us</h3>
     <ul class="links">
-      <li>
-        <div><strong>Discord</strong><span>The quickest way to reach an officer. The invite is on our Linktree.</span></div>
-        <a href="https://linktr.ee/aslc3" target="_blank" rel="noopener">linktr.ee/aslc3</a>
-      </li>
       <li>
         <div><strong>Facebook</strong><span>Announcements and photos from past events.</span></div>
         <a href="https://www.facebook.com/AnimeSocietyOfLccc" target="_blank" rel="noopener">Anime Society of LCCC</a>
@@ -1037,9 +1060,13 @@
   })();
 
   // ===== TABS =====
-  var names = ['about', 'info', 'calendar', 'contact'];
+  var names = ['about', 'info', 'contact'];
 
   function show(name) {
+    if (name === 'calendar') {                    // old link: open Club Info at the calendar
+      name = 'info';
+      setTimeout(function () { document.getElementById('sec-calendar').scrollIntoView(); }, 0);
+    }
     if (names.indexOf(name) === -1) name = 'about';
     names.forEach(function (n) {
       var on = n === name;
