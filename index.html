@@ -372,6 +372,19 @@
   .embed-help{font-size:0.9rem; color:var(--gray); margin:0 0 8px;}
   @media (max-width:680px){ .discord-embed{height:480px;} .discord-embed-small{height:340px;} }
 
+  /* ---------- section dividers ---------- */
+  hr.divider{
+    border:0; height:14px; margin:52px 0 0; position:relative; overflow:visible;
+    background:linear-gradient(90deg, transparent, var(--purple) 18%, var(--pink) 50%, var(--purple) 82%, transparent)
+               center / 100% 2px no-repeat;
+  }
+  hr.divider::after{
+    content:""; position:absolute; left:50%; top:50%; width:12px; height:12px;
+    background:var(--pink); border:3px solid #fff; box-shadow:0 0 0 2px var(--pink);
+    transform:translate(-50%, -50%) rotate(45deg);
+  }
+  hr.divider + h2, hr.divider + section > h2, .panel hr.divider + section > h2{margin-top:30px;}
+
   /* ---------- animations ---------- */
   @keyframes logoIn{
     0%{opacity:0; transform:translateY(-18px) scale(0.92);}
@@ -531,6 +544,8 @@
       <img src="assets/mascot.png" alt="The club mascot wearing a blue LCCC hoodie">
     </div>
 
+    <hr class="divider">
+
     <h2>What We Do</h2>
     <div class="grid">
       <div>
@@ -551,6 +566,8 @@
       </div>
     </div>
 
+    <hr class="divider">
+
     <h2>Officers</h2>
     <p>Select an officer to read more about them.</p>
     <ul class="officers" id="officers"></ul>
@@ -569,6 +586,8 @@
       <button type="button" data-jump="sec-rules">Rules</button>
       <button type="button" data-jump="sec-join">Membership</button>
     </nav>
+
+    <hr class="divider">
 
     <!-- 1. MEETINGS -->
     <section id="sec-meetings">
@@ -596,6 +615,8 @@
       </table>
       <p>Most meetings end with an optional group dinner off campus at a restaurant the club votes on. If a meeting is cancelled, we'll post it on Discord and social media.</p>
     </section>
+
+    <hr class="divider">
 
     <!-- 2. WHAT WE WATCH -->
     <section id="sec-watch">
@@ -647,6 +668,8 @@
       </div>
     </section>
 
+    <hr class="divider">
+
     <!-- 3. EVENTS -->
     <section id="sec-events">
       <h2>Events Through The Year</h2>
@@ -665,6 +688,8 @@
       </table>
       <p>Movie night picks are chosen by members. Suggestions are collected in the <strong>#movie-suggestion</strong> channel on Discord for a week, followed by a week-long poll.</p>
     </section>
+
+    <hr class="divider">
 
     <!-- 4. RULES -->
     <section id="sec-rules">
@@ -688,6 +713,8 @@
       <h3>High School And Early College Students</h3>
       <p>Some anime we watch includes mature content, so you'll need a waiver signed by a parent or guardian before taking part. Ask an officer for a copy.</p>
     </section>
+
+    <hr class="divider">
 
     <!-- 5. MEMBERSHIP -->
     <section id="sec-join">
@@ -763,6 +790,8 @@
         <a href="https://lorainccc.presence.io/organization/anime-society-of-lccc" target="_blank" rel="noopener">View our page</a>
       </li>
     </ul>
+
+    <hr class="divider">
 
     <h2>In Person</h2>
     <p>Stop by Room UC208A at LCCC on a Wednesday or Friday between 6:00 and 8:00 PM. An officer will be glad to answer questions.</p>
