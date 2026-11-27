@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anime Society of LCCC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#d92b73;
+    --purple:#5b2463;
+    --purple-dark:#3d1843;
+    --tint:#f8f3f9;
+    --text:#26222b;
+    --gray:#6b6570;
+    --border:#e3dce6;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    color:var(--text);
+    background:#fff;
+    min-height:100vh;
+    display:flex; flex-direction:column;
+  }
+  main{flex:1;}
+  img{max-width:100%;}
+  a{color:var(--pink);}
+  a:hover{color:var(--purple);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--pink); outline-offset:2px;}
+
+  .page{max-width:960px; margin:0 auto; padding:0 24px;}
+
+  /* logo header */
+  .logo{text-align:center; padding:26px 24px 14px;}
+  .logo img{width:400px; height:auto; display:inline-block;}
+
+  /* tabs */
+  .tabs{
+    position:sticky; top:0; z-index:10;
+    display:flex; justify-content:center;
+    background:var(--purple);
+  }
+  .tabs button{
+    font:inherit; font-weight:600; font-size:1rem;
+    padding:13px 34px;
+    background:none; border:none; cursor:pointer;
+    color:#e9d9ec;
+    border-bottom:3px solid transparent;
+  }
+  .tabs button:hover{color:#fff; background:rgba(255,255,255,0.08);}
+  .tabs button[aria-selected="true"]{color:#fff; border-bottom-color:var(--pink); background:var(--purple-dark);}
+  .tabs button:focus-visible{outline-color:#fff; outline-offset:-3px;}
+
+  /* content */
+  .panel{display:none; padding:44px 0 60px;}
+  .panel.active{display:block;}
+
+  h1{font-size:2.1rem; font-weight:700; line-height:1.2; margin-bottom:16px; color:var(--purple-dark);}
+  h2{
+    font-size:1.4rem; font-weight:700; color:var(--purple-dark);
+    margin:46px 0 16px; padding-bottom:8px;
+    border-bottom:2px solid var(--border);
+  }
+  h3{font-size:1.08rem; font-weight:700; margin-bottom:4px; color:var(--purple);}
+  p{margin-bottom:14px;}
+  .lead{font-size:1.15rem; color:var(--text);}
+
+  /* about intro */
+  .intro{display:grid; grid-template-columns:1fr 240px; gap:40px; align-items:start;}
+  .intro img{width:100%; display:block;}
+
+  .meeting{
+    background:var(--tint);
+    border:1px solid var(--border);
+    border-left:4px solid var(--pink);
+    border-radius:4px;
+    padding:16px 20px;
+    margin-top:22px;
+  }
+  .meeting strong{display:block; color:var(--purple-dark);}
+
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:22px 40px;}
+  .grid p{margin:0; color:var(--gray);}
+
+  .officers{display:grid; grid-template-columns:repeat(auto-fill, minmax(170px,1fr)); gap:14px; list-style:none;}
+  .officers li{border:1px solid var(--border); border-radius:4px; padding:14px 16px;}
+  .officers span{display:block; font-size:0.85rem; font-weight:600; color:var(--pink); text-transform:uppercase; letter-spacing:0.04em;}
+
+  /* tables */
+  table{width:100%; border-collapse:collapse; margin-bottom:8px;}
+  th, td{text-align:left; padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:top;}
+  thead th{background:var(--tint); color:var(--purple-dark); border-bottom:2px solid var(--border);}
+  tbody th{width:150px; color:var(--purple-dark); font-weight:700;}
+
+  .button{
+    display:inline-block;
+    background:var(--pink); color:#fff;
+    font-weight:600; text-decoration:none;
+    padding:11px 22px; border-radius:4px;
+    margin-top:6px;
+  }
+  .button:hover{background:var(--purple); color:#fff;}
+
+  /* wheel + summer */
+  .wheel{max-width:620px; margin:0 auto; text-align:center;}
+  .wheel iframe{
+    width:100%; height:760px; display:block;
+    border:1px solid var(--border); border-radius:4px; margin-bottom:8px;
+  }
+  .wheel a{font-size:0.95rem;}
+
+  .soon{display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;}
+  .soon div{
+    aspect-ratio:3/4;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+    background:rgba(91,36,99,0.10);
+    border:2px dashed rgba(91,36,99,0.30);
+    border-radius:6px;
+    color:var(--purple); font-weight:600;
+  }
+  .soon b{font-size:3.4rem; line-height:1; color:rgba(91,36,99,0.55);}
+  @media (max-width:680px){
+    .soon{grid-template-columns:1fr 1fr;}
+    .wheel iframe{height:560px;}
+  }
+
+  .steps{margin:0 0 14px 22px;}
+  .steps li{margin-bottom:6px; padding-left:4px;}
+  .plain{margin:0 0 14px 22px;}
+  .plain li{margin-bottom:6px;}
+  .list-title{margin:30px 0 10px; font-size:1.1rem;}
+  .anime{list-style:none; columns:2; column-gap:40px; border-top:1px solid var(--border);}
+  .anime li{
+    display:flex; justify-content:space-between; gap:14px;
+    padding:9px 4px; border-bottom:1px solid var(--border);
+    break-inside:avoid;
+  }
+  .anime span{color:var(--gray); font-size:0.9rem; white-space:nowrap;}
+  .soon{margin-top:18px;}
+  @media (max-width:680px){ .anime{columns:1;} }
+
+  /* contact */
+  .links{list-style:none; border-top:1px solid var(--border);}
+  .links li{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px; flex-wrap:wrap;
+    padding:16px 4px; border-bottom:1px solid var(--border);
+  }
+  .links strong{color:var(--purple-dark);}
+  .links span{color:var(--gray); display:block; font-size:0.95rem;}
+  .links a{font-weight:600; white-space:nowrap;}
+
+  footer{
+    background:var(--purple-dark); color:#d9c9dc;
+    text-align:center; padding:22px 24px; font-size:0.92rem;
+  }
+  footer a{color:#fff; margin:0 8px;}
+  footer p{margin:0 0 4px;}
+
+  @media (max-width:680px){
+    .logo img{width:300px;}
+    .tabs button{flex:1; padding:13px 4px;}
+    .intro{grid-template-columns:1fr; gap:10px;}
+    .intro img{width:170px; margin:0 auto; order:-1;}
+    .grid{grid-template-columns:1fr;}
+    tbody th{width:auto;}
+    h1{font-size:1.7rem;}
+  }
+
+  /* ---------- bold headers everywhere ---------- */
+  h1, h2, h3, h4, .panel section h3, dialog h2,
+  th, thead th, tbody th,
+  .tabs button, .jump span,
+  .officers span, .od-role,
+  .links strong, .meeting strong{font-weight:800;}
+
+  /* ---------- layout additions ---------- */
+  h2, section{scroll-margin-top:64px;}
+  h4{font-size:1.02rem; font-weight:800; color:var(--purple-dark); margin:26px 0 8px;}
+  .panel section h3{font-size:1.2rem; margin:30px 0 10px;}
+  .panel section > h2{margin-top:56px;}
+
+  .jump{
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+    background:var(--tint); border:1px solid var(--border); border-radius:4px;
+    padding:12px 16px; margin-top:22px;
+  }
+  .jump span{font-weight:700; color:var(--purple-dark); margin-right:6px; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.04em;}
+  .jump button{
+    font:inherit; font-weight:600; font-size:0.95rem; cursor:pointer;
+    background:#fff; color:var(--purple); border:1px solid var(--border); border-radius:100px;
+    padding:5px 14px; transition:background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .jump button:hover{background:var(--purple); color:#fff; border-color:var(--purple);}
+
+  .wheel-row{display:grid; grid-template-columns:1.1fr 0.9fr; gap:36px; align-items:start; margin-top:18px;}
+  .wheel-row .wheel{max-width:none; margin:0;}
+  .wheel-row .wheel iframe{height:620px;}
+  .wheel-row h4{margin-top:0;}
+  .wheel-row .anime{columns:1;}
+
+  /* contact rows: text on the left, link on the right, always on one line */
+  .links li{display:grid; grid-template-columns:1fr auto; align-items:center; gap:24px;}
+  .links a{text-align:right;}
+
+  /* officer cards + about-me dialog */
+  .officers li{padding:0;}
+  .officers button{
+    display:block; width:100%; height:100%; text-align:left;
+    font:inherit; color:inherit; background:none; border:none; cursor:pointer;
+    padding:14px 16px;
+  }
+  .officers small{display:block; margin-top:8px; font-size:0.85rem; font-weight:600; color:var(--purple);}
+  .officers li.vacant button{color:var(--gray);}
+
+  dialog{
+    border:none; border-radius:8px; padding:34px 34px 28px;
+    width:min(480px, calc(100vw - 32px)); margin:auto;
+    color:var(--text); box-shadow:0 30px 70px rgba(40,10,50,0.35);
+    text-align:center;
+  }
+  dialog::backdrop{background:rgba(40,16,46,0.55);}
+  dialog[open]{animation:panelIn 0.3s ease both;}
+  dialog h2{border:none; margin:2px 0 14px; padding:0; font-size:1.6rem;}
+  dialog p{text-align:left;}
+  .od-initial{
+    width:76px; height:76px; border-radius:50%; margin:0 auto 14px;
+    background:linear-gradient(140deg, var(--pink), var(--purple));
+    color:#fff; font-size:2rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .od-role{font-size:0.85rem; font-weight:700; color:var(--pink); text-transform:uppercase; letter-spacing:0.05em;}
+  .od-close{
+    position:absolute; top:10px; right:12px; width:34px; height:34px;
+    font-size:1.6rem; line-height:1; background:none; border:none; cursor:pointer; color:var(--gray); border-radius:50%;
+  }
+  .od-close:hover{background:var(--tint); color:var(--purple-dark);}
+
+  @media (max-width:760px){
+    .wheel-row{grid-template-columns:1fr;}
+    .wheel-row .wheel iframe{height:560px;}
+    .links li{grid-template-columns:1fr; gap:6px;}
+    .links a{text-align:left;}
+  }
+
+  /* keep the page column one fixed width so nothing shifts when content changes */
+  .page{width:100%;}
+
+  /* ---------- calendar ---------- */
+  .cal-grid{grid-template-columns:repeat(7, minmax(0, 1fr)) !important;}
+  .next-up{
+    background:var(--tint); border:1px solid var(--border); border-left:4px solid var(--pink);
+    border-radius:4px; padding:14px 20px; margin:22px 0 26px;
+  }
+  .next-up strong{display:block; color:var(--purple-dark); font-weight:800;}
+  .cal-head{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .cal-head h2{margin:0; padding:0; border:none; flex:1; text-align:center; font-size:1.5rem;}
+  .cal-head button{
+    font:inherit; font-weight:700; cursor:pointer;
+    background:#fff; color:var(--purple); border:1px solid var(--border); border-radius:4px;
+    min-width:42px; height:40px; padding:0 12px; font-size:1.3rem; line-height:1;
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+  .cal-head #cal-today{font-size:0.95rem;}
+  .cal-head button:hover{background:var(--purple); color:#fff;}
+
+  .cal-grid{
+    display:grid; grid-template-columns:repeat(7, 1fr);
+    border-top:1px solid var(--border); border-left:1px solid var(--border);
+    border-radius:4px; overflow:hidden;
+  }
+  .cal-dow{
+    background:var(--purple); color:#fff; font-weight:800; font-size:0.85rem;
+    text-align:center; padding:8px 2px; text-transform:uppercase; letter-spacing:0.04em;
+  }
+  .cal-day{
+    min-height:98px; padding:6px;
+    border-right:1px solid var(--border); border-bottom:1px solid var(--border);
+    background:#fff; font-size:0.8rem; line-height:1.3;
+  }
+  .cal-day.blank{background:#faf8fb;}
+  .cal-day.break{background:#eef4fb;}
+  .cal-day .num{display:inline-block; font-weight:700; font-size:0.95rem; margin-bottom:3px; min-width:26px; height:26px; line-height:26px; text-align:center; border-radius:50%;}
+  .cal-day.today .num{background:var(--pink); color:#fff;}
+  .chip{display:block; border-radius:3px; padding:2px 5px; margin-top:3px; font-weight:600; overflow-wrap:anywhere;}
+  .chip.club{background:var(--pink); color:#fff;}
+  .chip.off{background:#e6e3e8; color:#5c5661; text-decoration:line-through;}
+  .chip.break{background:#cfe0f3; color:#1d466f;}
+  .chip.holiday{background:#e3f1e2; color:#245c2a;}
+
+  .legend{list-style:none; display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px; font-size:0.92rem; color:var(--gray);}
+  .legend li{display:flex; align-items:center; gap:7px;}
+  .legend i{width:14px; height:14px; border-radius:3px; display:inline-block;}
+  .k-club{background:var(--pink);} .k-off{background:#cfcad2;} .k-break{background:#cfe0f3;} .k-holiday{background:#bfe0bd;}
+
+  .agenda{list-style:none; border-top:1px solid var(--border);}
+  .agenda li{display:grid; grid-template-columns:150px 1fr; gap:16px; padding:11px 4px; border-bottom:1px solid var(--border);}
+  .agenda b{color:var(--purple-dark); font-weight:700;}
+  .agenda .none{display:block; color:var(--gray);}
+
+  @media (max-width:680px){
+    .tabs button{font-size:0.88rem;}
+    .cal-day{min-height:64px; padding:3px; font-size:0.62rem;}
+    .cal-day .num{font-size:0.8rem; min-width:20px; height:20px; line-height:20px;}
+    .chip{padding:1px 2px;}
+    .cal-dow{font-size:0.7rem;}
+    .agenda li{grid-template-columns:1fr; gap:0;}
+  }
+
+  /* ---------- officer about-me template ---------- */
+  dialog{text-align:left; width:min(560px, calc(100vw - 32px));}
+  .od-top{display:flex; justify-content:space-between; align-items:center; gap:20px; padding-right:26px; margin-bottom:6px;}
+  .od-top h2{margin:2px 0 0; font-size:1.7rem; line-height:1.2;}
+  .od-pronouns{margin:2px 0 0; color:var(--gray); font-size:0.95rem;}
+  .od-pronouns:empty{display:none;}
+  .od-pic{
+    flex-shrink:0; width:104px; height:104px; border-radius:50%; overflow:hidden;
+    background:linear-gradient(140deg, var(--pink), var(--purple));
+    color:#fff; font-size:2.6rem; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 0 4px #fff, 0 0 0 6px var(--pink);
+  }
+  .od-pic img{width:100%; height:100%; object-fit:cover; display:block;}
+  #od-body{border-top:2px solid var(--border); margin-top:18px; padding-top:6px;}
+  #od-body h3{font-size:0.85rem; font-weight:800; color:var(--pink); text-transform:uppercase; letter-spacing:0.05em; margin:16px 0 2px;}
+  #od-body p{margin:0 0 4px;}
+  .od-anime{display:flex; gap:18px; align-items:flex-start; margin-top:14px;}
+  .od-anime img{width:110px; border-radius:4px; box-shadow:0 6px 16px rgba(40,10,50,0.25); flex-shrink:0;}
+  .od-anime h3:first-child{margin-top:0;}
+  @media (max-width:480px){
+    .od-pic{width:76px; height:76px; font-size:2rem;}
+    .od-anime img{width:84px;}
+  }
+
+  /* ---------- animations ---------- */
+  @keyframes logoIn{
+    0%{opacity:0; transform:translateY(-18px) scale(0.92);}
+    60%{opacity:1; transform:translateY(3px) scale(1.02);}
+    100%{opacity:1; transform:none;}
+  }
+  @keyframes panelIn{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:none;}
+  }
+  @keyframes rise{
+    from{opacity:0; transform:translateY(22px);}
+    to{opacity:1; transform:none;}
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+  }
+  @keyframes bob{
+    0%,100%{transform:translateY(0) rotate(-6deg);}
+    50%{transform:translateY(-8px) rotate(6deg);}
+  }
+  @keyframes sweep{
+    0%{transform:translateX(-120%) skewX(-20deg);}
+    60%,100%{transform:translateX(320%) skewX(-20deg);}
+  }
+  @keyframes glow{
+    0%,100%{box-shadow:0 0 0 0 rgba(217,43,115,0.0);}
+    50%{box-shadow:0 0 28px 2px rgba(217,43,115,0.28);}
+  }
+
+  .logo img{animation:logoIn 0.8s cubic-bezier(.2,.8,.3,1) both; transition:transform 0.3s ease;}
+  .logo a:hover img{transform:scale(1.03) rotate(-1deg);}
+
+  .tabs button{transition:color 0.2s ease, background 0.2s ease, border-color 0.25s ease;}
+  .panel.active{animation:panelIn 0.45s ease both;}
+
+  .intro img{animation:float 5s ease-in-out infinite;}
+
+  /* scroll reveal (classes are added by the script) */
+  .reveal{opacity:0;}
+  .reveal.in{opacity:1; animation:rise 0.6s cubic-bezier(.2,.7,.3,1) backwards; animation-delay:var(--d, 0s);}
+
+  .officers li, .grid > div{transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;}
+  .officers li:hover{transform:translateY(-4px); border-color:var(--pink); box-shadow:0 10px 22px rgba(91,36,99,0.14);}
+  .grid > div:hover{transform:translateX(6px);}
+
+  .anime li{transition:background 0.2s ease, padding 0.2s ease;}
+  .anime li:hover{background:var(--tint); padding-left:12px;}
+  tbody tr{transition:background 0.2s ease;}
+  tbody tr:hover{background:var(--tint);}
+
+  .wheel iframe{animation:glow 4s ease-in-out infinite;}
+
+  .soon div{position:relative; overflow:hidden; transition:transform 0.25s ease, background 0.25s ease;}
+  .soon div:hover{transform:translateY(-6px) scale(1.02); background:rgba(91,36,99,0.16);}
+  .soon div::after{
+    content:""; position:absolute; top:0; bottom:0; left:0; width:40%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+    animation:sweep 3.6s ease-in-out infinite;
+  }
+  .soon b{display:inline-block; animation:bob 2.6s ease-in-out infinite;}
+  .soon div:nth-child(2) b, .soon div:nth-child(2)::after{animation-delay:0.35s;}
+  .soon div:nth-child(3) b, .soon div:nth-child(3)::after{animation-delay:0.7s;}
+  .soon div:nth-child(4) b, .soon div:nth-child(4)::after{animation-delay:1.05s;}
+
+  .button{position:relative; overflow:hidden; transition:transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;}
+  .button:hover{transform:translateY(-2px); box-shadow:0 8px 18px rgba(217,43,115,0.35);}
+  .links li{transition:background 0.2s ease, padding 0.2s ease;}
+  .links li:hover{background:var(--tint); padding-left:14px;}
+
+  /* ---------- holiday intro: snow + Christmas lights (plays once per page load) ---------- */
+  .holiday-intro{
+    position:fixed; inset:0; z-index:100; pointer-events:none; overflow:hidden;
+    transition:opacity 2s ease;
+  }
+  .holiday-intro.fade{opacity:0;}
+  .lights{
+    position:absolute; top:0; left:0; right:0; height:46px;
+    display:flex; justify-content:space-around; align-items:flex-start;
+    border-top:3px solid #2f4a36;
+    animation:lightsIn 0.9s ease both;
+  }
+  .lights i{
+    width:12px; height:18px; margin-top:6px; border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;
+    background:var(--c); box-shadow:0 0 12px 3px var(--c);
+    position:relative;
+    animation:twinkle 1.4s ease-in-out infinite; animation-delay:var(--t);
+  }
+  .lights i:nth-child(odd){margin-top:14px;}
+  .lights i::before{
+    content:""; position:absolute; top:-6px; left:3px; width:6px; height:6px;
+    background:#2f4a36; border-radius:2px 2px 0 0;
+  }
+  .flake{
+    position:absolute; top:-30px; left:var(--x);
+    color:#fff; font-size:var(--s); line-height:1; opacity:var(--o);
+    text-shadow:0 0 4px rgba(91,36,99,0.55), 0 0 1px rgba(91,36,99,0.9);
+    animation:fall var(--dur) linear var(--delay) infinite;
+  }
+  @keyframes fall{
+    0%{transform:translate(0, -5vh) rotate(0deg);}
+    50%{transform:translate(var(--drift), 52vh) rotate(180deg);}
+    100%{transform:translate(0, 108vh) rotate(360deg);}
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:1; filter:brightness(1.15);}
+    50%{opacity:0.35; filter:brightness(0.7);}
+  }
+  @keyframes lightsIn{
+    from{transform:translateY(-50px);}
+    to{transform:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .holiday-intro{display:none;}
+    *, *::before, *::after{animation:none !important; transition:none !important;}
+    .reveal{opacity:1;}
+  }
+</style>
+</head>
+<body>
+
+<header class="logo">
+  <a href="#about"><img src="assets/logo.png" alt="Anime Society of LCCC" width="967" height="293"></a>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Site sections">
+  <button role="tab" id="tab-about" aria-controls="panel-about" aria-selected="true">About Us</button>
+  <button role="tab" id="tab-info" aria-controls="panel-info" aria-selected="false">Club Info</button>
+  <button role="tab" id="tab-calendar" aria-controls="panel-calendar" aria-selected="false">Calendar</button>
+  <button role="tab" id="tab-contact" aria-controls="panel-contact" aria-selected="false">Contact</button>
+</nav>
+
+<main class="page">
+
+  <!-- ABOUT US -->
+  <div class="panel active" role="tabpanel" id="panel-about" aria-labelledby="tab-about">
+    <div class="intro">
+      <div>
+        <h1>Welcome To The Anime Society of LCCC</h1>
+        <p class="lead">We're a student organization at Lorain County Community College for anyone who enjoys anime and wants to learn more about the culture behind it.</p>
+        <p>We meet twice a week to watch shows and films, hold workshops, and spend time with people who share the interest. You don't need any background in anime to take part. Longtime fans and complete newcomers are equally welcome.</p>
+        <div class="meeting">
+          <strong>Wednesdays and Fridays, 6:00 to 8:00 PM</strong>
+          Room UC208A, Lorain County Community College
+        </div>
+      </div>
+      <img src="assets/mascot.png" alt="The club mascot wearing a blue LCCC hoodie">
+    </div>
+
+    <h2>What We Do</h2>
+    <div class="grid">
+      <div>
+        <h3>Screenings</h3>
+        <p>Anime series and films, along with other Asian cinema and the occasional Western pick.</p>
+      </div>
+      <div>
+        <h3>Workshops</h3>
+        <p>Member-led presentations on the art, history, and culture of anime, open to the whole LCCC community.</p>
+      </div>
+      <div>
+        <h3>Social Nights</h3>
+        <p>Relaxed evenings for conversation, Japanese music, and getting to know other members.</p>
+      </div>
+      <div>
+        <h3>Discord</h3>
+        <p>Where we vote on what to watch next and share schedule updates between meetings.</p>
+      </div>
+    </div>
+
+    <h2>Officers</h2>
+    <p>Select an officer to read more about them.</p>
+    <ul class="officers" id="officers"></ul>
+  </div>
+
+  <!-- CLUB INFO -->
+  <div class="panel" role="tabpanel" id="panel-info" aria-labelledby="tab-info">
+    <h1>Club Info</h1>
+    <p class="lead">Everything you need to know before your first meeting.</p>
+
+    <nav class="jump" aria-label="On this page">
+      <span>Jump To</span>
+      <button type="button" data-jump="sec-meetings">Meetings</button>
+      <button type="button" data-jump="sec-watch">What We Watch</button>
+      <button type="button" data-jump="sec-events">Events</button>
+      <button type="button" data-jump="sec-rules">Rules</button>
+      <button type="button" data-jump="sec-join">Membership</button>
+    </nav>
+
+    <!-- 1. MEETINGS -->
+    <section id="sec-meetings">
+      <h2>Meetings</h2>
+
+      <h3>Meeting Details</h3>
+      <table>
+        <tbody>
+          <tr><th>When</th><td>Wednesdays and Fridays, 6:00 to 8:00 PM</td></tr>
+          <tr><th>Where</th><td>Room UC208A, Lorain County Community College, Elyria, Ohio</td></tr>
+          <tr><th>Cost</th><td>Free</td></tr>
+          <tr><th>Who Can Attend</th><td>All LCCC students and members of the surrounding community</td></tr>
+        </tbody>
+      </table>
+
+      <h3>How Club Nights Work</h3>
+      <table>
+        <thead>
+          <tr><th>Night</th><th>What Happens</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Wednesday</td><td><strong>Activity night.</strong> Games and group activities, plus the suggestion box for anime you'd like added to the wheel.</td></tr>
+          <tr><td>Friday</td><td><strong>Watch party.</strong> One episode each of two anime from the wheel, a short break, then two episodes chosen by a randomly drawn member.</td></tr>
+        </tbody>
+      </table>
+      <p>Most meetings end with an optional group dinner off campus at a restaurant the club votes on. If a meeting is cancelled, we'll post it on Discord and social media.</p>
+    </section>
+
+    <!-- 2. WHAT WE WATCH -->
+    <section id="sec-watch">
+      <h2>What We Watch</h2>
+
+      <h3>Spring / Fall</h3>
+      <p>During the spring and fall semesters, the anime wheel decides what we watch on Fridays. It is refreshed every semester with new suggestions from members.</p>
+
+      <div class="wheel-row">
+        <div class="wheel">
+          <iframe src="https://wheelofnames.com/8wv-hbr" title="Fall 2026 Anime Wheel" loading="lazy" scrolling="no" tabindex="-1" inert style="pointer-events:none;"></iframe>
+          <a href="https://wheelofnames.com/8wv-hbr" target="_blank" rel="noopener">Open the wheel in a new tab</a>
+        </div>
+        <div>
+          <h4>On The Wheel This Semester (Fall 2026)</h4>
+          <!-- Update this list whenever the wheel changes -->
+          <ul class="anime">
+            <li>AD Police <span>Ep. 3</span></li>
+            <li>Dragon Ball GT <span>Ep. 3</span></li>
+            <li>Farming Life in Another World <span>Ep. 2</span></li>
+            <li>Ghost in the Shell: Stand Alone Complex <span>Ep. 3</span></li>
+            <li>JoJo's Bizarre Adventure <span>Ep. 20</span></li>
+            <li>Link Click <span>Ep. 3</span></li>
+            <li>Mashle <span>Ep. 1</span></li>
+            <li>Revue Starlight <span>Ep. 3</span></li>
+            <li>Seven Deadly Sins <span>Ep. 4</span></li>
+            <li>The Ogre's Bride <span>Ep. 3</span></li>
+            <li>Touhou: The Memories of Phantasm <span>Ep. 4</span></li>
+            <li>Transformers: Armada <span>Ep. 5</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <h4>How The Wheel Works</h4>
+      <ol class="steps">
+        <li>We spin the wheel three times and write the results on the board. Trailers are shown if anyone wants to see them.</li>
+        <li>Everyone gets two votes. The two anime with the most votes are watched that night, highest vote first.</li>
+        <li>After the break, a member's name is drawn at random. That member picks what we watch next and whether it's dubbed or subbed.</li>
+        <li>The wheel keeps track of each show's episode number, so we pick up where we left off the next time it lands.</li>
+      </ol>
+
+      <h3>Summer</h3>
+      <p>Summer works differently. We meet on Fridays only, and instead of the wheel, members vote in a lineup for the whole season on Voting Night: one shorter series (11 to 13 episodes) and one longer series (23 to 26 episodes). Each week we watch one episode of the short series and two of the long one.</p>
+      <div class="soon">
+        <div><b>?</b>Coming Soon</div>
+        <div><b>?</b>Coming Soon</div>
+        <div><b>?</b>Coming Soon</div>
+        <div><b>?</b>Coming Soon</div>
+      </div>
+    </section>
+
+    <!-- 3. EVENTS -->
+    <section id="sec-events">
+      <h2>Events Through The Year</h2>
+      <table>
+        <thead>
+          <tr><th>Event</th><th>When</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Welcome Week</td><td>First week of each semester</td></tr>
+          <tr><td>National Student Day</td><td>As scheduled by LCCC</td></tr>
+          <tr><td>Cedar Point Day</td><td>October</td></tr>
+          <tr><td>Halloween Movie Night</td><td>The Friday on or before October 31</td></tr>
+          <tr><td>Spring Anime Movie</td><td>Spring semester</td></tr>
+          <tr><td>Anime Convention Trip</td><td>To be announced</td></tr>
+        </tbody>
+      </table>
+      <p>Movie night picks are chosen by members. Suggestions are collected in the <strong>#movie-suggestion</strong> channel on Discord for a week, followed by a week-long poll.</p>
+    </section>
+
+    <!-- 4. RULES -->
+    <section id="sec-rules">
+      <h2>Club Rules</h2>
+
+      <h3>Conduct</h3>
+      <ul class="plain">
+        <li>Treat everyone with dignity and respect.</li>
+        <li>Keep disruptions to a minimum during screenings and activities.</li>
+        <li>Keep the room clean. Clear your table and throw away your trash.</li>
+        <li>Follow the LCCC Campus Code of Conduct, which always takes precedence.</li>
+      </ul>
+
+      <h3>Anime Suggestions</h3>
+      <p>Keep suggestions suitable for a public college setting: no excessive gore or violence, nudity, or sexual content. Anything rated above TV-14 may be reviewed by the officers and advisor first.</p>
+
+      <h3>Warnings, Appeals, And Complaints</h3>
+      <p>Breaking the rules can lead to a warning, a suspension, or removal from the club, depending on how serious it is. If you receive a written warning or suspension, you can appeal in writing to any officer within 3 to 5 days.</p>
+      <p>If you have a problem with another member, an officer, or a club policy, ask any officer for a complaint or grievance form. Nobody will be penalized for filing one.</p>
+
+      <h3>High School And Early College Students</h3>
+      <p>Some anime we watch includes mature content, so you'll need a waiver signed by a parent or guardian before taking part. Ask an officer for a copy.</p>
+    </section>
+
+    <!-- 5. MEMBERSHIP -->
+    <section id="sec-join">
+      <h2>Becoming A Member</h2>
+      <p>Come to any meeting. You're welcome to sit in as often as you like before joining, and there's no fee. Students and non-students can both join. When you're ready, add yourself to our roster on LCCC Connect.</p>
+      <p>Members can take part in all club activities, events, and fundraisers, join the club Discord, and vote on what we watch and on club policies.</p>
+      <a class="button" href="https://lorainccc.presence.io/organization/anime-society-of-lccc" target="_blank" rel="noopener">Join on LCCC Connect</a>
+    </section>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="panel" role="tabpanel" id="panel-calendar" aria-labelledby="tab-calendar">
+    <h1>Calendar</h1>
+    <p class="lead">Club nights, off weeks, breaks, and holidays in one place.</p>
+
+    <div class="next-up" id="cal-next"></div>
+
+    <div class="cal-head">
+      <button type="button" id="cal-prev" aria-label="Previous month">&lsaquo;</button>
+      <h2 id="cal-title" aria-live="polite"></h2>
+      <button type="button" id="cal-next-btn" aria-label="Next month">&rsaquo;</button>
+      <button type="button" id="cal-today">Today</button>
+    </div>
+
+    <div class="cal-grid" id="cal-grid"></div>
+
+    <ul class="legend">
+      <li><i class="k-club"></i>Club Night</li>
+      <li><i class="k-off"></i>Off Week (No Meeting)</li>
+      <li><i class="k-break"></i>Break</li>
+      <li><i class="k-holiday"></i>Holiday</li>
+    </ul>
+
+    <h2>This Month</h2>
+    <ul class="agenda" id="cal-agenda"></ul>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="panel" role="tabpanel" id="panel-contact" aria-labelledby="tab-contact">
+    <h1>Contact</h1>
+    <p class="lead">Questions about the club or an upcoming meeting? Reach us through any of the channels below.</p>
+
+    <h2>Online</h2>
+    <ul class="links">
+      <li>
+        <div><strong>Discord</strong><span>The quickest way to reach an officer. The invite is on our Linktree.</span></div>
+        <a href="https://linktr.ee/aslc3" target="_blank" rel="noopener">linktr.ee/aslc3</a>
+      </li>
+      <li>
+        <div><strong>Facebook</strong><span>Announcements and photos from past events.</span></div>
+        <a href="https://www.facebook.com/AnimeSocietyOfLccc" target="_blank" rel="noopener">Anime Society of LCCC</a>
+      </li>
+      <li>
+        <div><strong>LCCC Connect</strong><span>Our official student organization page.</span></div>
+        <a href="https://lorainccc.presence.io/organization/anime-society-of-lccc" target="_blank" rel="noopener">View our page</a>
+      </li>
+    </ul>
+
+    <h2>In Person</h2>
+    <p>Stop by Room UC208A at LCCC on a Wednesday or Friday between 6:00 and 8:00 PM. An officer will be glad to answer questions.</p>
+  </div>
+
+</main>
+
+<dialog id="officer-dialog" aria-labelledby="od-name">
+  <button type="button" class="od-close" aria-label="Close">&times;</button>
+  <div class="od-top">
+    <div>
+      <span class="od-role" id="od-role"></span>
+      <h2 id="od-name"></h2>
+      <p class="od-pronouns" id="od-pronouns"></p>
+    </div>
+    <div class="od-pic" id="od-pic"></div>
+  </div>
+  <div id="od-body"></div>
+</dialog>
+
+<footer>
+  <p>Anime Society of LCCC &middot; Lorain County Community College, Elyria, Ohio</p>
+  <a href="https://linktr.ee/aslc3" target="_blank" rel="noopener">Discord</a>
+  <a href="https://www.facebook.com/AnimeSocietyOfLccc" target="_blank" rel="noopener">Facebook</a>
+  <a href="https://lorainccc.presence.io/organization/anime-society-of-lccc" target="_blank" rel="noopener">LCCC Connect</a>
+</footer>
+
+<script>
+  // ===== HOLIDAY INTRO =====
+  // Snow and Christmas lights play once when the page loads, then fade away.
+  // Switching tabs does not replay it. Set HOLIDAY_SECONDS to 0 to turn it off.
+  var HOLIDAY_SECONDS = 10;
+  (function () {
+    if (!HOLIDAY_SECONDS || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var layer = document.createElement('div');
+    layer.className = 'holiday-intro';
+    layer.setAttribute('aria-hidden', 'true');
+
+    var lights = document.createElement('div');
+    lights.className = 'lights';
+    var colors = ['#e53935', '#43a047', '#fdd835', '#1e88e5', '#d92b73'];
+    var bulbs = Math.max(10, Math.round(window.innerWidth / 45));
+    for (var i = 0; i < bulbs; i++) {
+      var b = document.createElement('i');
+      b.style.setProperty('--c', colors[i % colors.length]);
+      b.style.setProperty('--t', (i % 3) * 0.45 + 's');
+      lights.appendChild(b);
+    }
+    layer.appendChild(lights);
+
+    for (var f = 0; f < 60; f++) {
+      var s = document.createElement('span');
+      s.className = 'flake';
+      s.textContent = f % 3 ? '•' : '❄';
+      s.style.setProperty('--x', Math.random() * 100 + '%');
+      s.style.setProperty('--s', 10 + Math.random() * 16 + 'px');
+      s.style.setProperty('--o', 0.6 + Math.random() * 0.4);
+      s.style.setProperty('--dur', 5 + Math.random() * 5 + 's');
+      s.style.setProperty('--delay', -Math.random() * 6 + 's');
+      s.style.setProperty('--drift', (Math.random() * 80 - 40) + 'px');
+      layer.appendChild(s);
+    }
+    document.body.appendChild(layer);
+
+    setTimeout(function () { layer.classList.add('fade'); }, HOLIDAY_SECONDS * 1000);
+    setTimeout(function () { layer.remove(); }, HOLIDAY_SECONDS * 1000 + 2200);
+  })();
+
+  // ===== OFFICERS =====
+  // Edit this list to change the officers and their "About Me" popup.
+  // Every officer uses the same template. Leave a line as '' to hide that part.
+  //   pic       Discord profile picture (a file in the assets folder)
+  //   anime     favorite anime, with animePic as its picture
+  //   hobby     favorite hobby
+  //   pronouns  optional
+  //   bio       a short paragraph
+  // For an open position, set name to '' and it shows as Vacant (Recruiting).
+  var officers = [
+    { role: 'President', name: 'Xander Taylor',
+      pic: '', anime: '', animePic: '', hobby: '', pronouns: '', bio: '' },
+
+    { role: 'Vice President', name: 'Brandon Ross',
+      pic: 'assets/brandon-ross.avif',
+      anime: 'Steins;Gate', animePic: 'assets/steins-gate.png',
+      hobby: 'Playing Guitar / Songwriting',
+      pronouns: 'He/Him',
+      bio: "24 year old college male going for his Bachelor's in Computer Networking. Spends his time playing guitar and video games. Highly recommends Nirvana's first album, Bleach!" },
+
+    { role: 'Secretary / Treasurer', name: '' },
+    { role: 'Event Coordinator', name: '' },
+
+    { role: 'Club Advisor', name: 'Jacob Fitzwater',
+      pic: '', anime: '', animePic: '', hobby: '', pronouns: '', bio: '' }
+  ];
+
+  var dlg = document.getElementById('officer-dialog');
+  var list = document.getElementById('officers');
+
+  function make(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  officers.forEach(function (o) {
+    var li = make('li', o.name ? '' : 'vacant');
+    var btn = make('button');
+    btn.type = 'button';
+    btn.appendChild(make('span', '', o.role));
+    btn.appendChild(document.createTextNode(o.name || 'Vacant (Recruiting)'));
+    btn.appendChild(make('small', '', o.name ? 'About Me' : 'Learn More'));
+    btn.addEventListener('click', function () { openOfficer(o); });
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+
+  function openOfficer(o) {
+    document.getElementById('od-role').textContent = o.role;
+    document.getElementById('od-name').textContent = o.name || 'Vacant (Recruiting)';
+    document.getElementById('od-pronouns').textContent = o.pronouns || '';
+
+    // profile picture on the right (falls back to the first initial)
+    var pic = document.getElementById('od-pic');
+    pic.textContent = '';
+    if (o.pic) {
+      var img = make('img');
+      img.src = o.pic;
+      img.alt = o.name + "'s profile picture";
+      pic.appendChild(img);
+    } else {
+      pic.textContent = o.name ? o.name.charAt(0) : '?';
+    }
+
+    var body = document.getElementById('od-body');
+    body.textContent = '';
+    if (!o.name) {
+      body.appendChild(make('p', '', 'This position is open and we are looking for someone to fill it.'));
+      body.appendChild(make('p', '', 'Interested? Talk to any officer at a meeting or message us on Discord.'));
+    } else if (!(o.anime || o.hobby || o.bio)) {
+      body.appendChild(make('p', '', 'About me coming soon.'));
+    } else {
+      if (o.anime) {
+        var row = make('div', 'od-anime');
+        if (o.animePic) {
+          var cover = make('img');
+          cover.src = o.animePic;
+          cover.alt = o.anime + ' cover art';
+          row.appendChild(cover);
+        }
+        var box = make('div');
+        box.appendChild(make('h3', '', 'Favorite Anime'));
+        box.appendChild(make('p', '', o.anime));
+        if (o.hobby) {
+          box.appendChild(make('h3', '', 'Favorite Hobby'));
+          box.appendChild(make('p', '', o.hobby));
+        }
+        row.appendChild(box);
+        body.appendChild(row);
+      } else if (o.hobby) {
+        body.appendChild(make('h3', '', 'Favorite Hobby'));
+        body.appendChild(make('p', '', o.hobby));
+      }
+      if (o.bio) {
+        body.appendChild(make('h3', '', 'Bio'));
+        body.appendChild(make('p', '', o.bio));
+      }
+    }
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+  }
+
+  function closeOfficer() { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+  dlg.querySelector('.od-close').addEventListener('click', closeOfficer);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) closeOfficer(); });
+
+  // ===== "JUMP TO" BUTTONS ON CLUB INFO =====
+  document.querySelectorAll('[data-jump]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.getElementById(b.getAttribute('data-jump')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // ===== CALENDAR =====
+  // Edit these lists to change what shows on the calendar. Dates are YEAR-MONTH-DAY.
+  var CLUB_TIME = '6:00 to 8:00 PM, Room UC208A';
+  var clubDates = ['2026-12-11'];                 // one-off club nights
+  var weeklyStart = '2027-01-25';                 // from this date on, club meets every week...
+  var weeklyDay = 5;                              // ...on this day (0 = Sunday, 5 = Friday)
+  var weeklyEnd = '';                             // last weekly date, or '' to keep going
+  var offWeeks = ['2026-11-27', '2026-12-04'];    // no meeting on these dates
+  var breaks = [
+    { name: 'Winter Break', start: '2026-12-16', end: '2027-01-18' },
+    { name: 'Spring Break', start: '2027-03-14', end: '2027-03-20' }
+  ];
+  var specialNights = {                           // club nights with their own name
+    '2027-05-14': 'Summer Voting Night'
+  };
+
+  (function () {
+    var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var DOW_LONG = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+    function key(d) {
+      return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    }
+    function nth(y, m, dow, n) {            // nth weekday of a month (n = -1 for last)
+      if (n > 0) {
+        var first = new Date(y, m, 1).getDay();
+        return new Date(y, m, 1 + ((dow - first + 7) % 7) + (n - 1) * 7);
+      }
+      var last = new Date(y, m + 1, 0);
+      return new Date(y, m, last.getDate() - ((last.getDay() - dow + 7) % 7));
+    }
+    var holidayCache = {};
+    function holidays(y) {
+      if (holidayCache[y]) return holidayCache[y];
+      var h = {};
+      function add(d, name) { h[key(d)] = name; }
+      add(new Date(y, 0, 1), "New Year's Day");
+      add(nth(y, 0, 1, 3), 'Martin Luther King Jr. Day');
+      add(new Date(y, 1, 14), "Valentine's Day");
+      add(nth(y, 1, 1, 3), "Presidents' Day");
+      add(nth(y, 4, 1, -1), 'Memorial Day');
+      add(new Date(y, 5, 19), 'Juneteenth');
+      add(new Date(y, 6, 4), 'Independence Day');
+      add(nth(y, 8, 1, 1), 'Labor Day');
+      add(nth(y, 9, 1, 2), "Indigenous Peoples' Day");
+      add(new Date(y, 9, 31), 'Halloween');
+      add(new Date(y, 10, 11), 'Veterans Day');
+      add(nth(y, 10, 4, 4), 'Thanksgiving');
+      add(new Date(y, 11, 24), 'Christmas Eve');
+      add(new Date(y, 11, 25), 'Christmas Day');
+      add(new Date(y, 11, 31), "New Year's Eve");
+      return (holidayCache[y] = h);
+    }
+    function breakOn(k) {
+      for (var i = 0; i < breaks.length; i++) {
+        if (k >= breaks[i].start && k <= breaks[i].end) return breaks[i];
+      }
+      return null;
+    }
+    // Everything happening on one day, as a list of {type, label}.
+    function eventsOn(d) {
+      var k = key(d), out = [], br = breakOn(k);
+      var off = offWeeks.indexOf(k) !== -1;
+      var weekly = k >= weeklyStart && d.getDay() === weeklyDay && (!weeklyEnd || k <= weeklyEnd);
+      var hol = holidays(d.getFullYear())[k];
+      if (hol) out.push({ type: 'holiday', label: hol });
+      if (br) out.push({ type: 'break', label: br.name, start: k === br.start, end: k === br.end });
+      if (off) out.push({ type: 'off', label: 'Off Week' });
+      else if (specialNights[k]) out.push({ type: 'club', label: specialNights[k] });
+      else if (!br && (clubDates.indexOf(k) !== -1 || weekly)) out.push({ type: 'club', label: 'Club Night' });
+      return out;
+    }
+
+    var today = new Date(); today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    var view = new Date(today.getFullYear(), today.getMonth(), 1);
+    var grid = document.getElementById('cal-grid');
+    var agenda = document.getElementById('cal-agenda');
+
+    function el(tag, cls, text) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    }
+
+    function render() {
+      var y = view.getFullYear(), m = view.getMonth();
+      document.getElementById('cal-title').textContent = MONTHS[m] + ' ' + y;
+      grid.textContent = ''; agenda.textContent = '';
+      DOW.forEach(function (d) { grid.appendChild(el('div', 'cal-dow', d)); });
+
+      var lead = new Date(y, m, 1).getDay(), days = new Date(y, m + 1, 0).getDate();
+      for (var b = 0; b < lead; b++) grid.appendChild(el('div', 'cal-day blank'));
+
+      var rows = 0;
+      for (var day = 1; day <= days; day++) {
+        var d = new Date(y, m, day), evs = eventsOn(d);
+        var cell = el('div', 'cal-day');
+        if (key(d) === key(today)) cell.className += ' today';
+        cell.appendChild(el('span', 'num', day));
+        evs.forEach(function (e) {
+          if (e.type === 'break') {
+            cell.className += ' break';
+            // label the break on its first day, the 1st of a month, and each Sunday
+            if (!(e.start || day === 1 || d.getDay() === 0)) return;
+          }
+          cell.appendChild(el('span', 'chip ' + e.type, e.label));
+
+          // agenda: list a break once per month, everything else per day
+          if (e.type === 'break' && !(e.start || day === 1)) return;
+          var li = el('li');
+          li.appendChild(el('b', '', DOW_LONG[d.getDay()].slice(0, 3) + ', ' + MONTHS[m].slice(0, 3) + ' ' + day));
+          var text = e.label;
+          if (e.type === 'club') text += ' — ' + CLUB_TIME;
+          if (e.type === 'off') text += ' — No Meeting';
+          if (e.type === 'break') {
+            var br = breakOn(key(d)), en = br.end.split('-');
+            text += ' (through ' + MONTHS[en[1] - 1].slice(0, 3) + ' ' + (+en[2]) + ', ' + en[0] + ') — No Meetings';
+          }
+          li.appendChild(el('span', '', text));
+          agenda.appendChild(li);
+          rows++;
+        });
+        grid.appendChild(cell);
+      }
+      var trail = (7 - ((lead + days) % 7)) % 7;
+      for (var t = 0; t < trail; t++) grid.appendChild(el('div', 'cal-day blank'));
+      if (!rows) agenda.appendChild(el('li')).appendChild(el('span', 'none', 'Nothing scheduled this month.'));
+    }
+
+    // "Next Club Night" banner
+    (function () {
+      var box = document.getElementById('cal-next');
+      for (var i = 0; i < 400; i++) {
+        var d = new Date(today.getFullYear(), today.getMonth(), today.getDate() + i);
+        var club = eventsOn(d).some(function (e) { return e.type === 'club'; });
+        if (club) {
+          box.appendChild(el('strong', '', 'Next Club Night: ' + DOW_LONG[d.getDay()] + ', ' + MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()));
+          box.appendChild(document.createTextNode(CLUB_TIME));
+          return;
+        }
+      }
+      box.appendChild(el('strong', '', 'No Club Nights Scheduled Yet'));
+    })();
+
+    document.getElementById('cal-prev').addEventListener('click', function () { view.setMonth(view.getMonth() - 1); render(); });
+    document.getElementById('cal-next-btn').addEventListener('click', function () { view.setMonth(view.getMonth() + 1); render(); });
+    document.getElementById('cal-today').addEventListener('click', function () { view = new Date(today.getFullYear(), today.getMonth(), 1); render(); });
+    render();
+  })();
+
+  // ===== TABS =====
+  var names = ['about', 'info', 'calendar', 'contact'];
+
+  function show(name) {
+    if (names.indexOf(name) === -1) name = 'about';
+    names.forEach(function (n) {
+      var on = n === name;
+      document.getElementById('tab-' + n).setAttribute('aria-selected', on);
+      document.getElementById('panel-' + n).classList.toggle('active', on);
+    });
+  }
+
+  names.forEach(function (n) {
+    document.getElementById('tab-' + n).addEventListener('click', function () {
+      location.hash = n;
+    });
+  });
+
+  window.addEventListener('hashchange', function () {
+    show(location.hash.slice(1));
+    window.scrollTo(0, 0);
+  });
+  show(location.hash.slice(1));
+
+  // Scroll reveal: items fade and slide up as they come into view.
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+
+    var groups = '.grid > div, .officers li, .anime li, .soon div, .links li, .steps li, .plain li';
+    var singles = '.panel h2, .panel section h3, .panel h4, .panel table, .meeting, .wheel, .jump';
+    document.querySelectorAll(groups + ', ' + singles).forEach(function (el) {
+      el.classList.add('reveal');
+      if (el.matches(groups)) {
+        var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+        el.style.setProperty('--d', Math.min(i, 8) * 0.07 + 's');
+      }
+      io.observe(el);
+    });
+  }
+</script>
+
+</body>
+</html>
