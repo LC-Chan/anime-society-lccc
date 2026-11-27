@@ -402,6 +402,29 @@
   }
   hr.divider + h2, hr.divider + section > h2, .panel hr.divider + section > h2{margin-top:30px;}
 
+  /* ---------- easier reading ---------- */
+  /* shorter lines of text are easier to follow */
+  .panel p, .panel .plain, .panel .steps, .panel .lead{max-width:68ch;}
+  .panel p, .panel li{line-height:1.7;}
+  /* dividers separate the sections, so section titles drop their grey underline
+     and get a little bigger to stand out from the sub-headers */
+  h2{border-bottom:none; padding-bottom:0;}
+  .panel section > h2, .panel > h2{font-size:1.65rem;}
+
+  /* Club Info "Jump To" bar stays under the menu and shows where you are */
+  #panel-info .jump{
+    position:sticky; top:var(--tabs-h, 50px); z-index:5;
+    background:rgba(248,243,249,0.96); backdrop-filter:blur(6px);
+    box-shadow:0 6px 14px rgba(40,10,50,0.06);
+  }
+  #panel-info section{scroll-margin-top:var(--sticky-h, 130px);}
+  .jump button.active{background:var(--purple); color:#fff; border-color:var(--purple);}
+  @media (max-width:680px){
+    #panel-info .jump{flex-wrap:nowrap; overflow-x:auto; padding:10px 12px; scrollbar-width:none;}
+    #panel-info .jump::-webkit-scrollbar{display:none;}
+    #panel-info .jump button{flex-shrink:0;}
+  }
+
   /* ---------- animations ---------- */
   @keyframes logoIn{
     0%{opacity:0; transform:translateY(-18px) scale(0.92);}
@@ -1210,25 +1233,35 @@
   });
   show(location.hash.slice(1));
 
-  // Scroll reveal: items fade and slide up as they come into view.
-  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  // ===== CLUB INFO "JUMP TO" BAR =====
+  // Keeps the bar just under the menu and highlights the section on screen.
+  (function () {
+    var tabs = document.querySelector('.tabs');
+    var bar = document.querySelector('#panel-info .jump');
+    var buttons = bar.querySelectorAll('[data-jump]');
+    function measure() {
+      var th = tabs.offsetHeight;
+      document.documentElement.style.setProperty('--tabs-h', th + 'px');
+      document.documentElement.style.setProperty('--sticky-h', (th + bar.offsetHeight + 16) + 'px');
+    }
+    function highlight() {
+      if (!document.getElementById('panel-info').classList.contains('active')) return;
+      var line = tabs.offsetHeight + bar.offsetHeight + 40, current = null;
+      buttons.forEach(function (b) {
+        var sec = document.getElementById(b.getAttribute('data-jump'));
+        if (sec.getBoundingClientRect().top <= line) current = b;
       });
-    }, { threshold: 0.12 });
-
-    var groups = '.grid > div, .officers li, .anime li, .soon div, .links li, .steps li, .plain li';
-    var singles = '.panel h2, .panel section h3, .panel h4, .panel table, .meeting, .wheel, .jump';
-    document.querySelectorAll(groups + ', ' + singles).forEach(function (el) {
-      el.classList.add('reveal');
-      if (el.matches(groups)) {
-        var i = Array.prototype.indexOf.call(el.parentNode.children, el);
-        el.style.setProperty('--d', Math.min(i, 8) * 0.07 + 's');
+      buttons.forEach(function (b) { b.classList.toggle('active', b === current); });
+      if (current && current.scrollIntoView && bar.scrollWidth > bar.clientWidth) {
+        bar.scrollLeft = current.offsetLeft - 12;   // keep the active one visible on phones
       }
-      io.observe(el);
-    });
-  }
+    }
+    measure();
+    window.addEventListener('resize', measure);
+    window.addEventListener('scroll', highlight, { passive: true });
+    window.addEventListener('hashchange', function () { setTimeout(function () { measure(); highlight(); }, 0); });
+    highlight();
+  })();
 </script>
 
 </body>
