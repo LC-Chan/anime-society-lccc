@@ -7,7 +7,10 @@ The whole site is a single page, `index.html`, with its images in the `assets` f
 ## What's on the site
 
 - **About Us:** welcome, what the club does, and the officers (click an officer to read their About Me).
-- **Club Info:** meeting details, live #announcements from Discord, the calendar (club nights, off weeks, breaks, and holidays), the anime wheel and current watch list, summer plans, yearly events, rules, and how to join.
+- **Club Info** (a dropdown menu with three pages):
+  - **Club Info:** meeting details, the anime wheel and current watch list, summer plans, yearly events, rules, and how to join.
+  - **Announcements:** live #announcements from Discord.
+  - **Calendar:** club nights, off weeks, breaks, and holidays.
 - **Contact:** the live #rules channel from Discord, Facebook, and LCCC Connect.
 
 The Discord channels are embedded with [WidgetBot](https://widgetbot.io). To show a different channel, change the last number in the embed's link to that channel's ID.
