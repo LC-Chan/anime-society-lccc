@@ -70,6 +70,15 @@
     transition:opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
   }
   .dropdown.open .dd-menu{opacity:1; visibility:visible; transform:translate(-50%, 0);}
+  .tabs .dd-menu .dd-link{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:10px 14px; border-radius:5px; text-decoration:none;
+    color:var(--purple-dark); font-weight:700; font-size:0.98rem;
+    border-top:1px solid var(--border); margin-top:4px;
+  }
+  .tabs .dd-menu .dd-link:hover, .tabs .dd-menu .dd-link:focus-visible{background:var(--tint); color:var(--purple-dark);}
+  .tabs .dd-menu .dd-link:focus-visible{outline:2px solid var(--pink); outline-offset:-2px;}
+  .dd-link .ext{color:var(--pink); font-size:0.95em;}
   .tabs .dd-menu button{
     display:block; width:100%; text-align:left;
     padding:10px 14px; border:none; border-radius:5px;
@@ -530,6 +539,7 @@
       <button type="button" data-page="info">Club Info</button>
       <button type="button" data-page="announcements">Announcements</button>
       <button type="button" data-page="calendar">Calendar</button>
+      <a class="dd-link" href="assets/ASLC3-Constitution-2026-2027.pdf" target="_blank" rel="noopener">Constitution <span class="ext" aria-label="(PDF, opens in a new tab)">&#8599;</span></a>
     </div>
   </div>
   <button type="button" id="tab-contact" data-page="contact">Contact</button>
@@ -702,6 +712,7 @@
     <!-- 4. RULES -->
     <section id="sec-rules">
       <h2>Club Rules</h2>
+      <p>The basics are below. The full rules, including warnings, appeals, and complaints, are in our <a href="assets/ASLC3-Constitution-2026-2027.pdf" target="_blank" rel="noopener">Constitution (PDF)</a>.</p>
 
       <h3>Conduct</h3>
       <ul class="plain">
@@ -713,10 +724,6 @@
 
       <h3>Anime Suggestions</h3>
       <p>Keep suggestions suitable for a public college setting: no excessive gore or violence, nudity, or sexual content. Anything rated above TV-14 may be reviewed by the officers and advisor first.</p>
-
-      <h3>Warnings, Appeals, And Complaints</h3>
-      <p>Breaking the rules can lead to a warning, a suspension, or removal from the club, depending on how serious it is. If you receive a written warning or suspension, you can appeal in writing to any officer within 3 to 5 days.</p>
-      <p>If you have a problem with another member, an officer, or a club policy, ask any officer for a complaint or grievance form. Nobody will be penalized for filing one.</p>
 
       <h3>High School And Early College Students</h3>
       <p>Some anime we watch includes mature content, so you'll need a waiver signed by a parent or guardian before taking part. Ask an officer for a copy.</p>
@@ -1191,6 +1198,7 @@
     dd.addEventListener('mouseleave', function () { closeTimer = setTimeout(function () { setMenu(false); }, 180); });
   }
   document.addEventListener('click', function (e) { if (!dd.contains(e.target)) setMenu(false); });
+  dd.querySelectorAll('.dd-link').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && dd.classList.contains('open')) { setMenu(false); ddToggle.focus(); }
   });
